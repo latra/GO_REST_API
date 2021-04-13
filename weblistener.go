@@ -14,6 +14,7 @@ import (
 type Message struct {
 	Direction string `json:"IP"`
 	Port      string `json:"Port"`
+	Password  string `json:"Password"`
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +28,7 @@ func sendToBots(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	var message Message
 	json.Unmarshal(reqBody, &message)
-	discord.ChannelMessageSend("404371919618703371", fmt.Sprintf("Servidord de terraria abierto en la IP %s\nPuerto: %s.", message.Direction, message.Port))
+	discord.ChannelMessageSend("404371919618703371", fmt.Sprintf("Servidord de terraria abierto en la IP %s\nPuerto: %s.\nContraseña: %s", message.Direction, message.Port, message.Password))
 }
 func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
